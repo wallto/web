@@ -164,7 +164,7 @@ class MainController extends Controller {
                 );
                 $history = $this->model->curlQuery('history/'.$this->route['wid'], $params);
 
-                debug($history);
+                //debug($history);
             //echo '/wallet/btc?utoken='.$_SESSION["user_token"].'&app=gnomes';
             /*$balance[] = $this->model->curlQuery('/wallet/balance/btc?utoken='.$_SESSION["user_token"].'&app=gnomes');
             $balance[] = $this->model->curlQuery('/wallet/balance/ltc?utoken='.$_SESSION["user_token"].'&app=gnomes');*/

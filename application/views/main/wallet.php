@@ -84,28 +84,24 @@
                                 <th>Эквивалент</th>
                                 <th>Инфо</th>
                             </tr>
-                            <?php foreach ($history as $record): ?>
+                            <?php foreach ($history->history as  $index=>$record): ?>
+                            <?php if ($index < 10): ?>
                             <tr class="item">
                                 <td>
-                                    <?php (($record->send_colour=='green') ? '
-                                    <span class="status status-in">Пополнение</span>
-                                    ' : '
-                                    <span class="status status-out">Списание</span>
-                                    ') ?>
+                                    <?php if ($record->send_colour=='red') : ?>
+                                        <span class="status status-in">Пополнение</span>
+                                    <?php else: ?>
+                                        <span class="status status-out">Списание</span>
+                                    <?php endif; ?>
                                 </td>
-                                <td>0,15 BTC</td>
-                                <td>245$</td>
+                                <td><?=$record->output_adrs[0][1] ?> BTC</td>
+                                <td><?=($record->output_adrs[0][1] * 60) ?>$</td>
                                 <td><a href=""><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
                             </tr>
+
+                            <?php endif; ?>
                             <?php endforeach ?>
-                            <tr class="item">
-                                <td>
-                                    <span class="status status-out">Списание</span>
-                                </td>
-                                <td>0,15 BTC</td>
-                                <td>245$</td>
-                                <td><a href=""><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
-                            </tr>
+
                         </table>
                     </div>
                     <br>
