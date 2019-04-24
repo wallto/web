@@ -157,6 +157,14 @@ aside
 	.descr
 		color: $secondary
 
+.code
+	font-family: Courier, Monospace
+	display: block
+	overflow: auto
+	background: rgba(0, 0, 0, 0.25)
+	padding: 5px
+	border-radius: 4px
+
 .table-transactions
 	overflow: auto
 	table
@@ -210,7 +218,8 @@ aside
 		color: $danger-text
 
 a.wallet-list.active
-	box-shadow: 0px 0px 20px rgb(0, 0, 0)
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15)
+	left: 10px
 a.wallet-list
 	color: $header-text-color
 	&:hover
@@ -326,6 +335,9 @@ a.wallet-list
 	margin-top: 40px
 	margin-bottom: 40px
 
+#qrcode
+	display: inline-table
+	padding: 20px
 
 .form-group
 	margin-bottom: 1rem

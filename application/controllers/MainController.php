@@ -73,7 +73,7 @@ class MainController extends Controller {
                 $params = array(
                     'type' => $_POST["type"],
                     'testnet' => (isset($_POST["testnet"]) ? 1 : 0),
-                    'title' => $_POST["title"],
+                    'title' => ((!empty($_POST["title"])) ? $_POST["title"] : 'Wallet '.$_POST["type"]),
                     'utoken' => $_SESSION["user_token"],
                     'app' => 'gnomes'
                 );
@@ -185,12 +185,21 @@ class MainController extends Controller {
                 'utoken' => $_SESSION["user_token"],
                 'app' => 'gnomes'
             );
+
             $result = $this->model->curlQuery('send/'.$this->route['wid'], $params);
-            debug($result);
+            //debug($result);
+            if(!empty($result->data)) {
+                if($result->status = "success") {
+                    $notification = new Notification();
+                    $notification->add("Валюта отправлена, через: ".$result->data->network.', txid <span class="code danger">'.$result->data->txid.'</span>', 'Оповещение');
+                    $this->view->location('/wallet/'.$this->route['wid']);
+                }
+                $this->view->message('default', $result->message);
+            }
 //exit(var_dump($result));
             //echo $result;
-            if(!empty($result->status)) {
-                $this->view->message('default', $result->status);
+            if(!empty($result->message)) {
+                $this->view->message('default', $result->message);
             }
 
         }
@@ -259,7 +268,9 @@ class MainController extends Controller {
             );
             $history = $this->model->curlQuery('history/'.$this->route['wid'], $params);
 
+            $notification = new Notification();
             $vars = [
+                "notification" => $notification->getNotify(),
                 'wallets' => $wallets,
                 'curWallet' => $curWallet,
                 'curBalance' => $curBalance,

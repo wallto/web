@@ -137,6 +137,8 @@
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+<script src="//cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
 <!--    <script src="/public/libs/quicksand/js/jquery.quicksand.js"></script>-->
 <!--    <script src="/public/libs/quicksand/js/script.js"></script>-->
 <script src="/public/js/common.js"></script>

@@ -30,11 +30,10 @@
                     <div class="round-header">
                         <h3>Счёт <?=$curWallet->type?></h3>
                         <h1><?=$balance[$curWallet->id]->value?>  <?=$curWallet->type?></h1>
-                        <h3>20 115,4$</h3>
+                        <h3><?=($balance[$curWallet->id]->value)*60?>$</h3>
                     </div>
-                    <img class="qr-adress" src="https://qrcode.tec-it.com/API/QRCode?data=MECARD%3AN%3AJohn+Doe%3BTEL%3A555-555-5555%3BEMAIL%3Aemail%40example.com%3BNOTE%3AContoso%3BURL%3Ahttp%3A%2F%2Fwww.example.com%3B" alt="">
-                    <h4>Адрес:</h4>
-                    <p><?=$curWallet->address?></p>
+                    <input id="qrcode-text" type="text" value="<?=$curWallet->address?>" hidden />
+                    <div id="qrcode"></div>
                     <br>
                 </div>
             </div>
@@ -47,6 +46,11 @@
 
                     <div class="list-group">
                         <div class="element d-flex justify-content-between"><span class="descr">Cимвол</span> <span class="up"><?=$curWallet->type?></span></div>
+                        <div class="element d-flex justify-content-between"><span class="descr">Название кошелька</span> <span class="up"><?=$curWallet->title?></span></div>
+                        <div class="element d-flex justify-content-between"><span class="descr">Публичный ключ:</span> </div>
+                        <span class="code"><?=$curWallet->public?></span>
+                        <div class="element d-flex justify-content-between"><span class="descr">Адрес:</span> </div>
+                        <span class="code"><?=$curWallet->address?></span>
                     </div>
                 </div>
 
@@ -75,6 +79,7 @@
             <div class="col-md-12 ">
                 <div class="block">
                     <h2>История</h2>
+                    <?php if( $history->history[0]!='empty' ): ?>
                     <div class="table-transactions">
 
                         <table>
@@ -89,9 +94,11 @@
                             <tr class="item">
                                 <td>
                                     <?php if ($record->send_colour=='red') : ?>
-                                        <span class="status status-in">Пополнение</span>
-                                    <?php else: ?>
                                         <span class="status status-out">Списание</span>
+
+                                    <?php else: ?>
+                                        <span class="status status-in">Пополнение</span>
+
                                     <?php endif; ?>
                                 </td>
                                 <td><?=$record->output_adrs[0][1] ?> BTC</td>
@@ -106,6 +113,9 @@
                     </div>
                     <br>
                     <a href="/history/<?=$curWallet->id?>"class="btn-type1 float-right">Вся история</a>
+                    <?php else: ?>
+                    <p>Пусто</p>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -114,4 +124,10 @@
 </div>
 
 
-
+<?php if (!empty($notification)) : ?>
+    <div class="notification">
+        <div class="close"><i class="ion ion-md-close"></i></div>
+        <h3><?=$notification["status"]?></h3>
+        <p><?=$notification["msg"]?></p>
+    </div>
+<?php endif ?>

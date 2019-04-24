@@ -16,9 +16,10 @@
                                 <tr class="item">
                                     <td>
                                         <?php if ($record->send_colour=='red') : ?>
-                                            <span class="status status-in">Пополнение</span>
-                                        <?php else: ?>
                                             <span class="status status-out">Списание</span>
+
+                                        <?php else: ?>
+                                            <span class="status status-in">Пополнение</span>
                                         <?php endif; ?>
                                     </td>
                                     <td><?=$record->output_adrs[0][1] ?> BTC</td>

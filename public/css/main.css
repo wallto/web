@@ -1902,6 +1902,14 @@ aside {
 .list-group .descr {
   color: #9e98af; }
 
+.code {
+  font-family: Courier, Monospace;
+  display: block;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 5px;
+  border-radius: 4px; }
+
 .table-transactions {
   overflow: auto; }
   .table-transactions table {
@@ -1955,7 +1963,8 @@ aside {
     color: #f3797b; }
 
 a.wallet-list.active {
-  box-shadow: 0px 0px 20px black; }
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+  left: 10px; }
 
 a.wallet-list {
   color: #414675; }
@@ -2069,6 +2078,10 @@ a.wallet-list {
   width: 200px;
   margin-top: 40px;
   margin-bottom: 40px; }
+
+#qrcode {
+  display: inline-table;
+  padding: 20px; }
 
 .form-group {
   margin-bottom: 1rem; }

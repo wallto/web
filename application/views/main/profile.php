@@ -52,19 +52,19 @@
         <div class="row ">
             <div class="col-md-12 ">
                 <div class="block">
-                    <h2>Добавить кошелёк</h2>
+                    <h2>Привязать кошелёк</h2>
                     <form action="/add" method="post">
                         <div class="form-group">
-                            <input type="text" name="type" class="form-input" placeholder="type">
+                            <input type="text" name="type" class="form-input" placeholder="Валюта">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="pr" class="form-input" placeholder="pr">
+                            <input type="text" name="pr" class="form-input" placeholder="Приватный ключ">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="pu" class="form-input" placeholder="pu">
+                            <input type="text" name="pu" class="form-input" placeholder="Публичный ключ">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="ad" class="form-input" placeholder="ad">
+                            <input type="text" name="ad" class="form-input" placeholder="Адрес">
                         </div>
                         <div class="form-group">
                             <input type="text" name="title" class="form-input" placeholder="Название кошелька">

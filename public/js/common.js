@@ -46,6 +46,31 @@ $(function() {
 });
 
 $(window).load(function() {
+    var qrcode = new QRCode("qrcode");
+
+    function makeCode () {      
+        var elText = document.getElementById("qrcode-text");
+        
+        if (!elText.value) {
+            alert("Input a text");
+            elText.focus();
+            return;
+        }
+        
+        qrcode.makeCode(elText.value);
+    }
+
+    makeCode();
+
+    $("#qrcode-text").
+        on("blur", function () {
+            makeCode();
+        }).
+        on("keydown", function (e) {
+            if (e.keyCode == 13) {
+                makeCode();
+            }
+        });
 /*
 	$(".loader_inner").fadeOut();
 	$(".loader").delay(400).fadeOut("slow");
