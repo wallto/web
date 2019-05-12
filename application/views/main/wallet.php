@@ -3,7 +3,11 @@
     <div class="col-md-4">
         <div class="row">
 
-            <?php foreach ($wallets as $wallet) :?>
+            <?php foreach ($balance as $balanceGroupWallets) :?>
+            <?php foreach ($balanceGroupWallets as $walletId => $walletBalance) :?>
+                <?php $wallet = current(array_filter($wallets, function ($e) use (&$walletId) {
+                    return $e->id == $walletId;
+                })); ?>
                 <div class="col-md-12">
                     <a href="/wallet/<?=$wallet->id?>" class="block wallet-list d-flex justify-content-between <?=(($wallet->id===$curWallet->id) ? 'active' : '')?>" style="background-image: url(/public/img/icon-wallets/<?=$wallet->type?>.png);">
                                 <span class="wallet-list-title">
@@ -18,6 +22,7 @@
 
                     </a>
                 </div>
+                <?php endforeach?>
             <?php endforeach?>
 
         </div>
@@ -29,8 +34,8 @@
                 <div class="block no-padding text-center">
                     <div class="round-header">
                         <h3>Счёт <?=$curWallet->type?></h3>
-                        <h1><?=$balance[$curWallet->id]->value?>  <?=$curWallet->type?></h1>
-                        <h3><?=($balance[$curWallet->id]->value)*60?>$</h3>
+                        <h1><?=$balance[$curWallet->type][$curWallet->id]->value?>  <?=$curWallet->type?></h1>
+                        <h3><?=($balance[$curWallet->type][$curWallet->id]->value)*60?>$</h3>
                     </div>
                     <input id="qrcode-text" type="text" value="<?=$curWallet->address?>" hidden />
                     <div id="qrcode"></div>

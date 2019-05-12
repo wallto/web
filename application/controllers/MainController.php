@@ -124,14 +124,30 @@ class MainController extends Controller {
             $result = $this->model->curlQuery('create', $params);*/
             $balance = NULL;
 
+            /*usort($wallets,
+                function($a, $b)
+                {
+                    return strcmp($a->type, $b->type);
+                }
+            );*/
             foreach ($wallets as $wallet) {
                 $params = array(
                     'utoken' => $_SESSION["user_token"],
                     'app' => 'gnomes'
                 );
-                $balance[$wallet->id] = $this->model->curlQuery('balance/'.$wallet->id, $params);
+                $balance[$wallet->type][$wallet->id] = $this->model->curlQuery('balance/'.$wallet->id, $params);
             }
-            
+            foreach ($balance as $type => $balanceGroupWallets) {
+                uasort($balanceGroupWallets,
+                    function($a, $b)
+                    {
+                        return strcmp($b->value, $a->value);
+                    }
+                );
+                $balance[$type] = $balanceGroupWallets;
+            }
+
+
             //echo '/wallet/btc?utoken='.$_SESSION["user_token"].'&app=gnomes';
             /*$balance[] = $this->model->curlQuery('/wallet/balance/btc?utoken='.$_SESSION["user_token"].'&app=gnomes');
             $balance[] = $this->model->curlQuery('/wallet/balance/ltc?utoken='.$_SESSION["user_token"].'&app=gnomes');*/
@@ -254,14 +270,23 @@ class MainController extends Controller {
 
             $balance = NULL;
 
+
             foreach ($wallets as $wallet) {
                 $params = array(
                     'utoken' => $_SESSION["user_token"],
                     'app' => 'gnomes'
                 );
-                $balance[$wallet->id] = $this->model->curlQuery('balance/' . $wallet->id, $params);
+                $balance[$wallet->type][$wallet->id] = $this->model->curlQuery('balance/'.$wallet->id, $params);
             }
-
+            foreach ($balance as $type => $balanceGroupWallets) {
+                uasort($balanceGroupWallets,
+                    function($a, $b)
+                    {
+                        return strcmp($b->value, $a->value);
+                    }
+                );
+                $balance[$type] = $balanceGroupWallets;
+            }
             $params = array(
                 'utoken' => $_SESSION["user_token"],
                 'app' => 'gnomes'

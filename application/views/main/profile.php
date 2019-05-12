@@ -28,22 +28,27 @@
                 </div>
 
             </div>
-            <?php foreach ($wallets as $wallet) :?>
-                <div class="col-md-12">
-                    <a href="/wallet/<?=$wallet->id?>" class="block wallet-list d-flex justify-content-between" style="background-image: url(/public/img/icon-wallets/<?=$wallet->type?>.png);
-">
-                                <span class="wallet-list-title">
-                                    <span class="wallet-list-title__name">
-                                        <?=$wallet->title?>
+            <?php foreach ($balance as $balanceGroupWallets) :?>
+                <?php foreach ($balanceGroupWallets as $walletId => $walletBalance) :?>
+                <?php $wallet = current(array_filter($wallets, function ($e) use (&$walletId) {
+                                                            return $e->id == $walletId;
+                                                        })); ?>
+                    <div class="col-md-12">
+                        <a href="/wallet/<?=$wallet->id?>" class="block wallet-list d-flex justify-content-between" style="background-image: url(/public/img/icon-wallets/<?=$wallet->type?>.png);
+    ">
+                                    <span class="wallet-list-title">
+                                        <span class="wallet-list-title__name">
+                                            <?=$wallet->title?>
+                                        </span>
+                                        <span class="wallet-list-title__sht">
+                                            <?=$wallet->type?>
+                                        </span>
                                     </span>
-                                    <span class="wallet-list-title__sht">
-                                        <?=$wallet->type?>
-                                    </span>
-                                </span>
-                        <span class="wallet-list__count"><?=$balance[$wallet->id]->value?>  <?=$wallet->type?></span>
+                            <span class="wallet-list__count"><?=$walletBalance->value?>  <?=$wallet->type?></span>
 
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                <?php endforeach?>
             <?php endforeach?>
 
         </div>
