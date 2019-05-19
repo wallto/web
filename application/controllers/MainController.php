@@ -82,7 +82,7 @@ class MainController extends Controller {
                 if ($result->message == "Successfully.") $this->view->location('/profile');
                 else $this->view->message('default', $result->message);
             }
-        } else $this->view->redirect('/admin/login');
+        } else $this->view->redirect('/');
     }
     public function addWalletAction() {
         if(!$this->model->checkValidToken()) $this->view->redirect('/logout');
@@ -102,7 +102,7 @@ class MainController extends Controller {
                 if ($result->message == "Successfully.") $this->view->location('/profile');
                 else $this->view->message('default', $result->message);
             }
-        } else $this->view->redirect('/admin/login');
+        } else $this->view->redirect('/');
     }
     public function profileAction() {
 
@@ -329,7 +329,7 @@ class MainController extends Controller {
         );
         $this->model->curlQuery('logout', $params);
         unset($_SESSION['user_token']);
-        $this->view->redirect('/admin/login');
+        $this->view->redirect('/');
     }
 
     public function sendmsgAction() {

@@ -14,8 +14,6 @@ return [
 		'sendmsg',
 		'post',
 		'rates',
-	],
-	'authorize' => [
 		'index',
 		'register',
 		'profile',
@@ -24,6 +22,10 @@ return [
         'add',
         'history',
 		'logout',
+	],
+	'authorize' => [
+		
+		
 	],
 	'guest' => [
 		//
