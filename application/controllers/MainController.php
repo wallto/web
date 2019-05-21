@@ -9,6 +9,7 @@ class MainController extends Controller {
     public function __construct($route) {
         parent::__construct($route);
         $this->view->layout = 'profile';
+        $_SESSION['admin'] = true;
     }
 
     public function indexAction() {
@@ -49,7 +50,7 @@ class MainController extends Controller {
             );
             $result = $this->model->curlQuery('register', $params);
             if(!empty($result->message)) {
-            	if($result->message = "Successfully") {
+            	if($result->message == "Successfully") {
 		        	$notification = new Notification();
 		        	$notification->add("Успешно создан аккаунт, выполните вход", 'Оповещение');
 		        	$this->view->location('/');
@@ -124,12 +125,39 @@ class MainController extends Controller {
             $result = $this->model->curlQuery('create', $params);*/
             $balance = NULL;
 
-            /*usort($wallets,
+            usort($wallets,
                 function($a, $b)
                 {
                     return strcmp($a->type, $b->type);
                 }
-            );*/
+            );
+            $overallPrices = array();
+            $type = NULL;
+            $keys = array_keys($wallets);
+            $last_key = end($keys);
+            $tempPrice = 0.00000000;
+            foreach ($wallets as $key => $wallet) {
+                
+                if(!empty($type) AND ($type != $wallet->type) OR ($key == $last_key)) {
+                    $overallPrices[$type] = $tempPrice;
+                    $type = $wallet->type;
+                    $tempPrice = 0;
+                    
+                } else {
+                    $type = $wallet->type;
+                    $tempPrice += $wallet->balance;
+
+                }
+
+                if($key == $last_key) {
+                    $overallPrices[$type] = $tempPrice;
+                    $type = $wallet->type;
+                    $tempPrice = 0;
+                }
+                
+            }
+            
+            /*
             foreach ($wallets as $wallet) {
                 $params = array(
                     'utoken' => $_SESSION["user_token"],
@@ -145,15 +173,17 @@ class MainController extends Controller {
                     }
                 );
                 $balance[$type] = $balanceGroupWallets;
-            }
+            }*/
 
 
             //echo '/wallet/btc?utoken='.$_SESSION["user_token"].'&app=gnomes';
             /*$balance[] = $this->model->curlQuery('/wallet/balance/btc?utoken='.$_SESSION["user_token"].'&app=gnomes');
             $balance[] = $this->model->curlQuery('/wallet/balance/ltc?utoken='.$_SESSION["user_token"].'&app=gnomes');*/
             //echo 'http://176.53.162.231:5000/wallet/btc?utoken='.$_SESSION["user_token"].'&app=gnomes';
+
             $vars = [
                 'wallets' => $wallets,
+                'overallPrices' => $overallPrices,
                 'balance' => $balance
             ];
             $this->view->render('Профайл', $vars);
@@ -259,7 +289,8 @@ class MainController extends Controller {
                 'utoken' => $_SESSION["user_token"],
                 'app' => 'gnomes'
             );
-            $curBalance = $this->model->curlQuery('balance/' . $curWallet->id, $params);
+            $curBalance = NULL;
+            //$curBalance = $this->model->curlQuery('balance/' . $curWallet->id, $params);
 
 
             $params = array(
@@ -270,8 +301,38 @@ class MainController extends Controller {
 
             $balance = NULL;
 
+            usort($wallets,
+                function($a, $b)
+                {
+                    return strcmp($a->type, $b->type);
+                }
+            );
+            $overallPrices = array();
+            $type = NULL;
+            $keys = array_keys($wallets);
+            $last_key = end($keys);
+            $tempPrice = 0.00000000;
+            foreach ($wallets as $key => $wallet) {
+                
+                if(!empty($type) AND ($type != $wallet->type) OR ($key == $last_key)) {
+                    $overallPrices[$type] = $tempPrice;
+                    $type = $wallet->type;
+                    $tempPrice = 0;
+                    
+                } else {
+                    $type = $wallet->type;
+                    $tempPrice += $wallet->balance;
 
-            foreach ($wallets as $wallet) {
+                }
+
+                if($key == $last_key) {
+                    $overallPrices[$type] = $tempPrice;
+                    $type = $wallet->type;
+                    $tempPrice = 0;
+                }
+                
+            }
+            /*foreach ($wallets as $wallet) {
                 $params = array(
                     'utoken' => $_SESSION["user_token"],
                     'app' => 'gnomes'
@@ -286,7 +347,7 @@ class MainController extends Controller {
                     }
                 );
                 $balance[$type] = $balanceGroupWallets;
-            }
+            }*/
             $params = array(
                 'utoken' => $_SESSION["user_token"],
                 'app' => 'gnomes'
@@ -300,6 +361,7 @@ class MainController extends Controller {
                 'curWallet' => $curWallet,
                 'curBalance' => $curBalance,
                 'history' => $history,
+                'overallPrices' => $overallPrices,
                 'balance' => $balance
             ];
             $this->view->render('Профайл', $vars);

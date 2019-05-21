@@ -92,6 +92,18 @@ $(".close").click(function() {
     $(this).parent('.notification').remove();
 });
 
+$(".walletGroup .walletGroupPrew").click(function() {
+    $(this).toggleClass("active");
+    $(this).next().toggleClass("active");
+    //$(this + ".openButton").toggleClass("active");
+});
+
+$(function () {
+    $('.popup-modal').magnificPopup({
+        type: 'inline',
+        closeBtnInside: true
+    });
+});
 /* Parallax
         $.fn.parallax = function(resistance, mouse) {
           $el = $(this);

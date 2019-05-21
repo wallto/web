@@ -1887,6 +1887,85 @@ aside {
     .notification .close:hover {
       color: #f3797b; }
 
+.walletGroup .walletGroupPrew {
+  height: 150px;
+  border-radius: 7px;
+  background-color: #434eee;
+  padding: 30px;
+  position: relative;
+  cursor: pointer; }
+  .walletGroup .walletGroupPrew h1, .walletGroup .walletGroupPrew h2, .walletGroup .walletGroupPrew h3, .walletGroup .walletGroupPrew span {
+    color: #fff; }
+  .walletGroup .walletGroupPrew.btc {
+    background-image: linear-gradient(to left top, #ffdf40, #ffc73f, #ffaf45, #ff984f, #ff8359); }
+  .walletGroup .walletGroupPrew.ltc {
+    background-image: linear-gradient(to right bottom, #73c9f8, #89c6ff, #a7c1ff, #c7bbff, #e7b3fe); }
+  .walletGroup .walletGroupPrew .openButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 33px;
+    color: #fff;
+    transition: all 0.3s ease-in; }
+  .walletGroup .walletGroupPrew.active .openButton {
+    transition: all 0.3s ease-out;
+    transform: rotate(90deg); }
+.walletGroup .wallets-list {
+  max-height: 0;
+  transition: max-height 0.7s ease-out;
+  overflow: hidden; }
+  .walletGroup .wallets-list.active {
+    max-height: 5000px;
+    transition: max-height 1.3s ease-in; }
+
+.walletGroupPrew-t {
+  height: 150px !important;
+  border-radius: 7px !important;
+  background-color: #434eee !important;
+  padding: 30px !important;
+  position: relative !important;
+  cursor: pointer !important; }
+  .walletGroupPrew-t h1, .walletGroupPrew-t h2, .walletGroupPrew-t h3, .walletGroupPrew-t span {
+    color: #fff !important; }
+  .walletGroupPrew-t .openButton-t {
+    position: absolute !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    font-size: 33px !important;
+    color: #fff !important;
+    transition: all 0.3s ease-in !important; }
+
+.add-wallet {
+  text-decoration: none;
+  height: 82px; }
+  .add-wallet:hover {
+    text-decoration: none; }
+  .add-wallet .title {
+    color: #414675; }
+  .add-wallet .add {
+    color: #fff;
+    font-size: 40px;
+    line-height: 0;
+    margin-top: -7px;
+    position: relative; }
+    .add-wallet .add::before {
+      position: absolute;
+      content: "";
+      width: 150px;
+      height: 150px;
+      background-color: #434eee;
+      border-radius: 50%;
+      top: -58px;
+      z-index: -1;
+      transition: all 0.3s;
+      right: -90px;
+      border: 11px solid #5e68ea;
+      opacity: 0.8; }
+    .add-wallet .add:hover::before {
+      opacity: 0.9;
+      right: -80px;
+      transition: all 0.3s; }
+
 .up {
   color: #00b28f; }
 
@@ -1963,7 +2042,6 @@ aside {
     color: #f3797b; }
 
 a.wallet-list.active {
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
   left: 10px; }
 
 a.wallet-list {

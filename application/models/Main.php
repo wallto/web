@@ -22,7 +22,7 @@ class Main extends Model {
     public function curlQuery($path, $params)
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'http://176.53.162.231:5000/'.$path.'?'.http_build_query($params));
+        curl_setopt($curl, CURLOPT_URL, $this->API_CONFIG['ADDRESS'].$path.'?'.http_build_query($params));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($curl);
         curl_close($curl);
@@ -34,7 +34,7 @@ class Main extends Model {
     public function checkValidToken()
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'http://176.53.162.231:5000/cvt?utoken='.$_SESSION["user_token"].'&app=gnomes');
+        curl_setopt($curl, CURLOPT_URL, $this->API_CONFIG['ADDRESS'].'cvt?utoken='.$_SESSION["user_token"].'&app=gnomes');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($curl);
         curl_close($curl);
@@ -44,7 +44,7 @@ class Main extends Model {
         else {
             if(isset($_SESSION["user_token"])) {
                 $curl = curl_init();
-                curl_setopt($curl, CURLOPT_URL, 'http://176.53.162.231:5000/extend?utoken='.$_SESSION["user_token"].'&app=gnomes');
+                curl_setopt($curl, CURLOPT_URL, $this->API_CONFIG['ADDRESS'].'extend?utoken='.$_SESSION["user_token"].'&app=gnomes');
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                 $result = curl_exec($curl);
                 curl_close($curl);

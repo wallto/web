@@ -3,27 +3,127 @@
     <div class="col-md-4">
         <div class="row">
 
-            <?php foreach ($balance as $balanceGroupWallets) :?>
-            <?php foreach ($balanceGroupWallets as $walletId => $walletBalance) :?>
-                <?php $wallet = current(array_filter($wallets, function ($e) use (&$walletId) {
-                    return $e->id == $walletId;
-                })); ?>
-                <div class="col-md-12">
-                    <a href="/wallet/<?=$wallet->id?>" class="block wallet-list d-flex justify-content-between <?=(($wallet->id===$curWallet->id) ? 'active' : '')?>" style="background-image: url(/public/img/icon-wallets/<?=$wallet->type?>.png);">
-                                <span class="wallet-list-title">
-                                    <span class="wallet-list-title__name">
-                                        <?=$wallet->title?>
-                                    </span>
-                                    <span class="wallet-list-title__sht">
-                                        BTC
-                                    </span>
-                                </span>
 
 
-                    </a>
-                </div>
+                <?php $keys = array_keys($wallets);
+                    $last_key = end($keys);
+                    $walletGroup = NULL; foreach ($wallets as $key => $wallet) :?>
+                    <?php if($walletGroup != $wallet->type):?>
+                        <?php if($walletGroup != NULL): ?>
+                                                        <!-- ADD NEW -->
+                            <div class="col-md-12">
+                                <a href="#add-modal-<?=$walletGroup?>" class="popup-modal add-wallet block d-flex justify-content-between">
+                                    <span class="title">
+                                        <span class="title">
+                                            Создать новый кошелёк
+                                        </span>
+                                    </span>
+                                    <span class="add"><i class="ion ion-md-add"></i></span>
+                                </a>
+                                <div id="add-modal-<?=$walletGroup?>" class="mfp-hide white-popup">
+                                    <h1>Создать новый кошелёк</h1>
+                                    <form action="/create" method="post">
+                                        <div class="form-group">
+                                            <input type="text" name="title" class="form-input" placeholder="Название кошелька">
+                                            <label for="">Валюта: <?=$walletGroup?></label>
+                                            <input type="hidden" name="type" value="<?=$walletGroup?>">
+                                            <br>
+                                            <label for="">testnet</label>
+                                            <label class="switch">
+                                                <input type="checkbox" name="testnet" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                            <div class="form-group">
+                                                <button class="button-v1">Создать</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <p>*и помните: мы вас не звали, идите нахуй!</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <?php endif ?>
+                        <?php $walletGroup = $wallet->type;?>
+                        <?php 
+                            $valName = 'No name';
+                            if($wallet->type == 'btc') $valName = 'Bitcoin';
+                            if($wallet->type == 'ltc') $valName = 'Litecoin';
+                        ?>
+                            <div class="walletGroup col-md-12">
+                                <div class="walletGroupPrew <?=$wallet->type ?> block <?=(($walletGroup===$curWallet->type) ? 'active' : '')?>">
+                                    <h3>Баланс <?=$valName ?></h3>
+                                    <h1><?=$overallPrices[$wallet->type]?> <span><?=$wallet->type ?></span></h1> 
+                                    <div class="openButton"><i class="ion ion-md-arrow-forward"></i></div>
+                                </div>
+                                <div class="wallets-list row  <?=(($walletGroup===$curWallet->type) ? 'active' : '')?>">
+                    <?php endif ?>
+
+
+
+        <div class="col-md-12">
+            <a href="/wallet/<?=$wallet->id?>" class="block wallet-list d-flex justify-content-between <?=(($wallet->id===$curWallet->id) ? 'active' : '')?>" style="background-image: url(/public/img/icon-wallets/<?=$wallet->type?>.png);">
+                <span class="wallet-list-title">
+                    <span class="wallet-list-title__name">
+                        <?=$wallet->title?>
+                    </span>
+                    <span class="wallet-list-title__sht">
+                        <?=$wallet->type?>
+                    </span>
+                </span>
+                <span class="wallet-list__count"><?=$wallet->balance?>  <?=$wallet->type?></span>
+                
+            </a>
+        </div>
+
+
+
+                    <?php if ($key == $last_key): ?>
+                            <!-- ADD NEW -->
+                            <div class="col-md-12">
+                                <a href="#add-modal-<?=$walletGroup?>" class="popup-modal add-wallet block d-flex justify-content-between">
+                                    <span class="title">
+                                        <span class="title">
+                                            Создать новый кошелёк
+                                        </span>
+                                    </span>
+                                    <span class="add"><i class="ion ion-md-add"></i></span>
+                                </a>
+                                <div id="add-modal-<?=$walletGroup?>" class="mfp-hide white-popup">
+                                    <h1>Создать новый кошелёк</h1>
+                                    <form action="/create" method="post">
+                                        <div class="form-group">
+                                            <input type="text" name="title" class="form-input" placeholder="Название кошелька">
+                                            <label for="">Валюта: <?=$walletGroup?></label>
+                                            <input type="hidden" name="type" value="<?=$walletGroup?>">
+                                            <br>
+                                            <label for="">testnet</label>
+                                            <label class="switch">
+                                                <input type="checkbox" name="testnet" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                            <div class="form-group">
+                                                <button class="button-v1">Создать</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <p>*и помните: мы вас не звали, идите нахуй!</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <?php endif ?>
                 <?php endforeach?>
-            <?php endforeach?>
+
+
+
+
 
         </div>
     </div>
@@ -34,8 +134,8 @@
                 <div class="block no-padding text-center">
                     <div class="round-header">
                         <h3>Счёт <?=$curWallet->type?></h3>
-                        <h1><?=$balance[$curWallet->type][$curWallet->id]->value?>  <?=$curWallet->type?></h1>
-                        <h3><?=($balance[$curWallet->type][$curWallet->id]->value)*60?>$</h3>
+                        <h1><?=$curWallet->balance?>  <?=$curWallet->type?></h1>
+                        <h3><?=($curWallet->balance)*60?>$</h3>
                     </div>
                     <input id="qrcode-text" type="text" value="<?=$curWallet->address?>" hidden />
                     <div id="qrcode"></div>
