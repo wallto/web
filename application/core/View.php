@@ -29,6 +29,27 @@ class View{
 		}
 	}
 
+    /**
+     * exit json content
+     *
+     * @param $title
+     * @param array $vars
+     */
+    public function toAjax($title, $vars = []) {
+        extract($vars);
+        $path = 'application/views/'.$this->path.'.php';
+        $name ='Main';
+        $name = 'application\models\\'.ucfirst($name);
+        $this->func = new $name;
+        $footer = $this->func->getFooter();
+        if (file_exists($path)) {
+            ob_start();
+            require $path;
+            $content = ob_get_clean();
+            exit(json_encode(["content" => $content]));
+        }
+    }
+
 	public function redirect($url) {
 		header('location: '.$url);
 		exit;

@@ -381,7 +381,8 @@ class MainController extends Controller {
             $vars = [
                 'prices' => $prices,
             ];
-            $this->view->render('Rates', $vars);
+            $this->view->toAjax('Rates', $vars);
+
 
     }
     public function logoutAction() {
