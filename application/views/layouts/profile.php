@@ -31,6 +31,8 @@
 
     <link rel="stylesheet" href="/public/libs/animate/animate.css">
 
+
+
     <link rel="stylesheet" href="/public/css/main.css?#123">
     <link rel="stylesheet" href="/public/css/media.css?#123">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
@@ -68,6 +70,43 @@
             box-shadow: 0 -2px 6px rgba(14,21,47,0.05), 0 6px 18px rgba(14,21,47,0.15);
             position: relative;
         }
+        .tooltip {
+            position: absolute;
+            z-index: 1070;
+            display: block;
+            margin: 0;
+            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: left;
+            text-decoration: none;
+            text-shadow: none;
+            text-transform: none;
+            letter-spacing: normal;
+            word-break: normal;
+            word-spacing: normal;
+            white-space: normal;
+            line-break: auto;
+            font-size: .875rem;
+            word-wrap: break-word;
+            box-shadow: 0px 0px 20px rgba(34, 36, 38, 0.5);
+        }
+        .tooltip-arrow {
+            position: absolute;
+            display: block;
+            width: .8rem;
+            height: .4rem;
+            bottom: 0;
+        }
+        .tooltip-inner {
+            max-width: 200px;
+            padding: .5rem 1rem;
+            color: #fff;
+            text-align: center;
+            background-color: #6467ef;
+            border-radius: .25rem;
+        }
 
         }
     </style>
@@ -80,8 +119,8 @@
         <div class="side-menu-header">
             <div class="round-header">
                 <h1>Wallto</h1>
-                <img src="/public/img/profile-img.png" alt="">
-                <h3><?=$_SESSION['login']?></h3>
+                <img src="/public/img/login.png" alt="">
+                <h3><?=explode('@', $_SESSION['login'])[0]?></h3>
             </div>
 
         </div>
@@ -91,22 +130,22 @@
                     <i class="list-group-item__icon icon ion-md-home"></i>
                     <span>Главная</span>
                 </a>-->
-                <a href="/profile" class="list-group-item d-flex align-items-center">
+                <a href="/profile" class="ajax list-group-item d-flex align-items-center">
                     <i class="list-group-item__icon icon ion-md-wallet"></i>
                     <span>Счета</span>
                 </a>
-                <a href="/rates" class="list-group-item d-flex align-items-center">
+                <a href="/rates" class="ajax list-group-item d-flex align-items-center">
                     <i class="list-group-item__icon icon ion-md-podium"></i>
                     <span>Курсы</span>
                 </a>
-                <a href="#" class="list-group-item d-flex align-items-center">
+                <a href="/settings" class="ajax list-group-item d-flex align-items-center">
                     <i class="list-group-item__icon icon ion-md-settings"></i>
                     <span>Настройки</span>
                 </a>
             </div>
 
             <div class="list-group fix-bottom">
-                <a href="#" class="list-group-item d-flex align-items-center">
+                <a href="#help" class="popup-modal list-group-item d-flex align-items-center">
                     <i class="list-group-item__icon icon ion-md-help-buoy"></i>
                     <span>Поддержка</span>
                 </a>
@@ -119,14 +158,24 @@
     </aside>
 
 
-    <main class="content w-100">
+    <main class="content w-100" id="app-content">
 
         <?php echo $content; ?>
 
     </main>
 
 </div>
-<div class="hidden"></div>
+<div class="hidden">
+
+<div id="help" class="mfp-hide white-popup">
+    <h1>Поддержка</h1>
+    <p>В случае возникновения вопросов и предложений писать на почту:</p>
+    <span class="code">support@wallto.ru</span>
+    <br>
+    <p>или</p>
+    <span class="code">support@mandarinshow.ru</span>
+</div>
+</div>
 
 <script src="/public/libs/waypoints/waypoints.min.js"></script>
 <script src="/public/libs/animate/animate-css.js"></script>
@@ -137,10 +186,17 @@
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <script src="//cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
 <!--    <script src="/public/libs/quicksand/js/jquery.quicksand.js"></script>-->
 <!--    <script src="/public/libs/quicksand/js/script.js"></script>-->
 <script src="/public/js/common.js"></script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 </body>
 </html>

@@ -46,9 +46,8 @@ $(function() {
 });
 
 $(window).load(function() {
-    var qrcode = new QRCode("qrcode");
 
-    function makeCode () {      
+    function makeCode () {
         var elText = document.getElementById("qrcode-text");
         
         if (!elText.value) {
@@ -59,18 +58,23 @@ $(window).load(function() {
         
         qrcode.makeCode(elText.value);
     }
+    if($("#qrcode").get(0)) {
+        var qrcode = new QRCode("qrcode");
 
-    makeCode();
 
-    $("#qrcode-text").
-        on("blur", function () {
-            makeCode();
-        }).
-        on("keydown", function (e) {
-            if (e.keyCode == 13) {
+        makeCode();
+
+        $("#qrcode-text").
+            on("blur", function () {
                 makeCode();
-            }
-        });
+            }).
+            on("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    makeCode();
+                }
+            });
+    }
+
 /*
 	$(".loader_inner").fadeOut();
 	$(".loader").delay(400).fadeOut("slow");
@@ -88,11 +92,12 @@ $(window).load(function() {
     $(".gitem").imagefill();*/
 });
 
-$(".close").click(function() {
+$('#app-content').on('click', ".close", function(){
     $(this).parent('.notification').remove();
 });
 
-$(".walletGroup .walletGroupPrew").click(function() {
+
+$('#app-content').on('click',".walletGroup .walletGroupPrew", function(){
     $(this).toggleClass("active");
     $(this).next().toggleClass("active");
     //$(this + ".openButton").toggleClass("active");
@@ -118,3 +123,73 @@ $(function () {
           $(".title").parallax(50, e);
           });
 */
+
+
+ function processAjaxData(title, urlPath){
+     document.title = title;
+     window.history.pushState({"pageTitle": title},"", urlPath);
+ }
+
+$('body').on('click',"a.ajax", function(){
+
+    document.getElementById('app-content').innerHTML = '<div class="row"><div class="col-md-12"><div class="block"><div class="preloader-block"><img src="/public/img/loader.gif" alt=""></div></div></div></div>';
+
+    var href = $(this).attr('href');
+    //setLoc(href);
+    var json;
+    event.preventDefault();
+    $.ajax({
+        type: 'post',
+        url: href,
+        data: "",
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(result) {
+
+            json = jQuery.parseJSON(result);
+            if (json.content) {
+                if(json.title) processAjaxData(json.title, href);
+                $('#app-content').html(json.content);
+
+                if($("#qrcode").get(0)) {
+                    function makeCode () {
+                        var elText = document.getElementById("qrcode-text");
+                        
+                        if (!elText.value) {
+                            alert("Input a text");
+                            elText.focus();
+                            return;
+                        }
+                        
+                        qrcode.makeCode(elText.value);
+                    }
+                    var qrcode = new QRCode("qrcode");
+                    makeCode();
+                    $("#qrcode-text").
+                        on("blur", function () {
+                            makeCode();
+                        }).
+                        on("keydown", function (e) {
+                            if (e.keyCode == 13) {
+                                makeCode();
+                            }
+                        });
+                }
+
+                /*POPUP*/
+                $(function () {
+                    $('.popup-modal').magnificPopup({
+                        type: 'inline',
+                        closeBtnInside: true
+                    });
+                });
+            } else {
+                
+            }
+        },
+    });
+
+    return false;
+});
+

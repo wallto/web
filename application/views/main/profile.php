@@ -34,7 +34,6 @@
                     <div class="walletGroupPrew-t col-md-12 block">
                         <h3>Новый кошелёк</h3>
                         <h1>Создать</span></h1> 
-                        <div class="openButton-t"><i class="ion ion-md-arrow-forward"></i></div>
                     </div>
                 </a>
                 <div id="add-modal-new" class="mfp-hide white-popup">
@@ -48,7 +47,7 @@
                                 <option value="ltc">LTC</option>
                             </select>
                             <br>
-                            <label for="">testnet</label>
+                            <label for="">TestNet</label><br>
                             <label class="switch">
                                 <input type="checkbox" name="testnet" checked>
                                 <span class="slider"></span>
@@ -87,7 +86,7 @@
                                             <label for="">Валюта: <?=$walletGroup?></label>
                                             <input type="hidden" name="type" value="<?=$walletGroup?>">
                                             <br>
-                                            <label for="">testnet</label>
+                                             <label for="">TestNet</label><br>
                                             <label class="switch">
                                                 <input type="checkbox" name="testnet" checked>
                                                 <span class="slider"></span>
@@ -97,7 +96,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <p>*и помните: мы вас не звали, идите нахуй!</p>
                                 </div>
                             </div>
 
@@ -124,7 +122,7 @@
 
 
         <div class="col-md-12">
-            <a href="/wallet/<?=$wallet->id?>" class="block wallet-list d-flex justify-content-between" style="background-image: url(/public/img/icon-wallets/<?=$wallet->type?>.png);">
+            <a href="/wallet/<?=$wallet->id?>" class="ajax block wallet-list d-flex justify-content-between" style="background-image: url(/public/img/icon-wallets/<?=$wallet->type?>.png);">
                 <span class="wallet-list-title">
                     <span class="wallet-list-title__name">
                         <?=$wallet->title?>
@@ -159,7 +157,7 @@
                                             <label for="">Валюта: <?=$walletGroup?></label>
                                             <input type="hidden" name="type" value="<?=$walletGroup?>">
                                             <br>
-                                            <label for="">testnet</label>
+                                             <label for="">TestNet</label><br>
                                             <label class="switch">
                                                 <input type="checkbox" name="testnet" checked>
                                                 <span class="slider"></span>
@@ -169,7 +167,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <p>*и помните: мы вас не звали, идите нахуй!</p>
                                 </div>
                             </div>
 
@@ -232,7 +229,7 @@
                                 </td>
                                 <td>0,15 BTC</td>
                                 <td>245$</td>
-                                <td><a href=""><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
+                                <td><a href="#" data-toggle="tooltip" title="Hooray!"><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
                             </tr>
                             <tr class="item">
                                 <td>
@@ -246,7 +243,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 <div class="block">
                     <h2>Текущие цены</h2>
                     <div class="table-transactions">
@@ -289,7 +286,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </div>

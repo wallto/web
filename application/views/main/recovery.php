@@ -52,21 +52,15 @@
 <?php endif ?>
           <div id="app" class="min-height100vh d-flex align-items-center justify-content-center">
               <div class="block" style="padding: 45px 120px;">
-                  <h2 class="text-center h2">Регистрация</h2>
-                  <form action="/register" method="post">
+                  <h2 class="text-center h2">Востановление пароля</h2>
+                  <form action="/recovery" method="post">
                       <div class="form-group">
-                          <input type="text" name="login" class="form-input" placeholder="Email">
-                      </div>
-                      <div class="form-group">
-                          <input type="password" name="password" class="form-input" placeholder="Пароль">
-                      </div>
-                      <div class="form-group">
-                          <input type="password" name="passwordTwo" class="form-input" placeholder="Повтор пароля">
+                          <input type="text" name="email" class="form-input" placeholder="Почта">
                       </div>
                       <div class="form-group">
                           <button class="button-v1">Отправить</button>
                       </div>
                   </form>
-                  <a href="/"><button class="button-v2">Войти в аккаунт</button></a>
+                  <a href="/"><button class="button-v2">Назад</button></a>
               </div>
           </div>

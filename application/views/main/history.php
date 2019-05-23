@@ -24,7 +24,7 @@
                                     </td>
                                     <td><?=$record->output_adrs[0][1] ?> BTC</td>
                                     <td><?=($record->output_adrs[0][1] * 60) ?>$</td>
-                                    <td><a href=""><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
+                                    <td><a href="" data-toggle="tooltip" title="send_date: <?=$record->send_date?> - send_hash <?=$record->send_date?>"><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
                                 </tr>
                             <?php endforeach ?>
                             <tr class="item">
@@ -33,7 +33,7 @@
                                 </td>
                                 <td>0,15 BTC</td>
                                 <td>245$</td>
-                                <td><a href=""><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
+                                <td><a href="" data-toggle="tooltip" title="send_date: <?=$record->send_date?> - send_hash <?=$record->send_date?>"><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
                             </tr>
                         </table>
                     </div>

@@ -55,15 +55,17 @@
                   <h2 class="text-center h2">Авторизация</h2>
                   <form action="/" method="post">
                       <div class="form-group">
-                          <input type="text" name="login" class="form-input" placeholder="Логин">
+                          <input type="text" name="login" class="form-input" placeholder="Email">
                       </div>
                       <div class="form-group">
                           <input type="password" name="password" class="form-input" placeholder="Пароль">
+                          <a href="/recovery">Забыли пароль?</a>
                       </div>
                       <div class="form-group">
                           <button class="button-v1">Отправить</button>
                       </div>
                   </form>
                   <a href="/register"><button class="button-v2">Создать новый аккаунт</button></a>
+
               </div>
           </div>

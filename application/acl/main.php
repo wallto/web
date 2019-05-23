@@ -21,6 +21,9 @@ return [
         'create',
         'add',
         'history',
+        'rcd',
+        'recovery',
+        'settings',
 		'logout',
 	],
 	'authorize' => [

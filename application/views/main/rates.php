@@ -13,11 +13,11 @@
                                 <th>Цена</th>
                                 <th>Изменение (24ч)</th>
                             </tr>
-                            <?php foreach ($prices as $price) :?>
+                            <?php  foreach ($prices as $price) :?>
                             <tr class="item">
                                 <td>
                                     <span class="wallet">
-                                        <img class="wallet-image" src="/public/img/icon-wallets/<?=strtolower($price->symbol)?>.png" alt="">
+                                        <img class="wallet-image" src="/public/img/icon-wallets/<?=(in_array(strtolower($price->symbol), $wArr) ? strtolower($price->symbol) : 'coin')?>.png" alt="">
                                         <span class="wallet-name">
                                             <?=$price->name?>
                                         </span>

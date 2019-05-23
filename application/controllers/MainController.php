@@ -14,6 +14,7 @@ class MainController extends Controller {
 
     public function indexAction() {
         $this->view->layout = 'default';
+        if(isset($_SESSION['login'])) $this->view->redirect('/profile');
         if (!empty($_POST)) {
             $params = array(
                 'login' => $_POST["login"],
@@ -43,6 +44,7 @@ class MainController extends Controller {
     public function registerAction() {
         $this->view->layout = 'default';
         if (!empty($_POST)) {
+            if($_POST["password"] != $_POST["passwordTwo"]) $this->view->message('default', 'Пароли не совпадают!');
             $params = array(
                 'login' => $_POST["login"],
                 'password' => $_POST["password"],
@@ -372,7 +374,7 @@ class MainController extends Controller {
     		//$exampleModel->echoExample();
 
             //$prices = $this->model->getCryptoRates();
-
+            $wArr = array("bch", "btc", "btg", "coin", "dash", "doge", "eth", "ltc");
             $params = array(
                 'app' => 'gnomes'
             );
@@ -380,9 +382,112 @@ class MainController extends Controller {
 
             $vars = [
                 'prices' => $prices,
+                'wArr' => $wArr,
             ];
-            $this->view->toAjax('Rates', $vars);
+            $this->view->render('Rates', $vars);
 
+    }
+    public function settingsAction() {
+            if (!empty($_POST)) {
+                $params = array(
+                    'oldpass' => $_POST['oldpass'],
+                    'password' => $_POST['password'],
+                    'utoken' => $_SESSION["user_token"],
+                    'app' => 'gnomes'
+                );
+
+                $result = $this->model->curlQuery('recover', $params);
+
+                if(!empty($result->message)) {
+                    if($result->message == "Successfully.") {
+                        $notification = new Notification();
+                        $notification->add('Пароль успешно изменён', 'Оповещение');
+                        unset($_SESSION['RECOVERY_EMAIL']);
+                        $this->view->location('/settings');
+                    }
+                    $this->view->message('default', $result->message);
+                }
+    //exit(var_dump($result));
+                //echo $result;
+                if(!empty($result->message)) {
+                    $this->view->message('default', $result->message);
+                }
+
+            }
+            $notification = new Notification();
+            $vars = [
+                "notification" => $notification->getNotify()
+            ];
+            $this->view->render('Настройки', $vars);
+
+    }
+    public function recoveryAction() {
+            $this->view->layout = 'default';
+
+            if (!empty($_POST)) {
+                $params = array(
+                    'login' => $_POST['email'],
+                    'app' => 'gnomes'
+                );
+
+                $result = $this->model->curlQuery('sendmail', $params);
+
+                if(!empty($result->message)) {
+                    if($result->message == "Successfully.") {
+                        $notification = new Notification();
+                        $notification->add('На почту отправлено письмо с кодом, введите код', 'Оповещение');
+                        $_SESSION['RECOVERY_EMAIL'] = $_POST['email'];
+                        $this->view->location('/rcd');
+                    }
+                    $this->view->message('default', $result->message);
+                }
+    //exit(var_dump($result));
+                //echo $result;
+                if(!empty($result->message)) {
+                    $this->view->message('default', $result->message);
+                }
+
+            }
+            $vars = [
+
+            ];
+            $this->view->render('Восстановление пароля', $vars);
+
+    }
+    public function rcdAction() {
+        if(!isset($_SESSION['RECOVERY_EMAIL'])) $this->view->redirect('/');
+            $this->view->layout = 'default';
+
+            if (!empty($_POST)) {
+                $params = array(
+                    'login' => $_POST['email'],
+                    'code' => $_POST['code'],
+                    'app' => 'gnomes'
+                );
+
+                $result = $this->model->curlQuery('recover', $params);
+
+                if(!empty($result->message)) {
+                    if($result->message == "Successfully.") {
+                        $notification = new Notification();
+                        $notification->add('На почту отправлено письмо с новым паролем', 'Доступ восстановлен');
+                        unset($_SESSION['RECOVERY_EMAIL']);
+                        $this->view->location('/');
+                    }
+                    $this->view->message('default', $result->message);
+                }
+    //exit(var_dump($result));
+                //echo $result;
+                if(!empty($result->message)) {
+                    $this->view->message('default', $result->message);
+                }
+
+            }
+            $notification = new Notification();
+            $vars = [
+                "notification" => $notification->getNotify()
+            ];
+            $this->view->render('Восстановление пароля', $vars);
 
     }
     public function logoutAction() {
@@ -391,6 +496,7 @@ class MainController extends Controller {
             'app' => 'gnomes'
         );
         $this->model->curlQuery('logout', $params);
+        unset($_SESSION['login']);
         unset($_SESSION['user_token']);
         $this->view->redirect('/');
     }

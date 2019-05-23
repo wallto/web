@@ -15,7 +15,7 @@ Start Sass Template
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4"><p class="copyright">© 2018 DSDLab. Все права защищены.</p></div>
+                    <div class="col-lg-4"><p class="copyright">© 2018 Все права защищены.</p></div>
                 </div>
             </div>
         </footer>

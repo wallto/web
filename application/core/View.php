@@ -25,7 +25,10 @@ class View{
 			ob_start();
 			require $path;
 			$content = ob_get_clean();
-			require 'application/views/layouts/'.$this->layout.'.php';
+			
+            if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                exit(json_encode(["title" => $title, "content" => $content]));
+            } else require 'application/views/layouts/'.$this->layout.'.php';
 		}
 	}
 

@@ -14,6 +14,18 @@ return [
 		'controller' => 'main',
 		'action' => 'profile',
 	],
+	'settings' => [
+		'controller' => 'main',
+		'action' => 'settings',
+	],
+	'recovery' => [
+		'controller' => 'main',
+		'action' => 'recovery',
+	],
+	'rcd' => [
+		'controller' => 'main',
+		'action' => 'rcd',
+	],
 	'send/{wid:\d+}' => [
 		'controller' => 'main',
 		'action' => 'send',

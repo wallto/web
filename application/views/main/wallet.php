@@ -28,7 +28,7 @@
                                             <label for="">Валюта: <?=$walletGroup?></label>
                                             <input type="hidden" name="type" value="<?=$walletGroup?>">
                                             <br>
-                                            <label for="">testnet</label>
+                                             <label for="">TestNet</label><br>
                                             <label class="switch">
                                                 <input type="checkbox" name="testnet" checked>
                                                 <span class="slider"></span>
@@ -38,7 +38,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <p>*и помните: мы вас не звали, идите нахуй!</p>
                                 </div>
                             </div>
 
@@ -65,7 +64,7 @@
 
 
         <div class="col-md-12">
-            <a href="/wallet/<?=$wallet->id?>" class="block wallet-list d-flex justify-content-between <?=(($wallet->id===$curWallet->id) ? 'active' : '')?>" style="background-image: url(/public/img/icon-wallets/<?=$wallet->type?>.png);">
+            <a href="/wallet/<?=$wallet->id?>" class="ajax block wallet-list d-flex justify-content-between <?=(($wallet->id===$curWallet->id) ? 'active' : '')?>" style="background-image: url(/public/img/icon-wallets/<?=$wallet->type?>.png);">
                 <span class="wallet-list-title">
                     <span class="wallet-list-title__name">
                         <?=$wallet->title?>
@@ -74,7 +73,7 @@
                         <?=$wallet->type?>
                     </span>
                 </span>
-                <span class="wallet-list__count"><?=$wallet->balance?>  <?=$wallet->type?></span>
+                <span class="wallet-list__count"><?=$wallet->balance?></span>
                 
             </a>
         </div>
@@ -100,7 +99,7 @@
                                             <label for="">Валюта: <?=$walletGroup?></label>
                                             <input type="hidden" name="type" value="<?=$walletGroup?>">
                                             <br>
-                                            <label for="">testnet</label>
+                                             <label for="">TestNet</label><br>
                                             <label class="switch">
                                                 <input type="checkbox" name="testnet" checked>
                                                 <span class="slider"></span>
@@ -110,7 +109,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <p>*и помните: мы вас не звали, идите нахуй!</p>
                                 </div>
                             </div>
 
@@ -151,7 +149,7 @@
 
                     <div class="list-group">
                         <div class="element d-flex justify-content-between"><span class="descr">Cимвол</span> <span class="up"><?=$curWallet->type?></span></div>
-                        <div class="element d-flex justify-content-between"><span class="descr">Название кошелька</span> <span class="up"><?=$curWallet->title?></span></div>
+                        <div class="element d-flex justify-content-between"><span class="descr">Название кошелька</span> <span class="up" style="width: 73px; overflow: auto;"><?=$curWallet->title?></span></div>
                         <div class="element d-flex justify-content-between"><span class="descr">Публичный ключ:</span> </div>
                         <span class="code"><?=$curWallet->public?></span>
                         <div class="element d-flex justify-content-between"><span class="descr">Адрес:</span> </div>
@@ -208,7 +206,7 @@
                                 </td>
                                 <td><?=$record->output_adrs[0][1] ?> BTC</td>
                                 <td><?=($record->output_adrs[0][1] * 60) ?>$</td>
-                                <td><a href=""><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
+                                <td><a href="#" data-toggle="tooltip" title="send_date: <?=$record->send_date?> - send_hash <?=$record->send_date?>"><i class="list-group-item__icon icon ion-md-information-circle-outline"></i></a></td>
                             </tr>
 
                             <?php endif; ?>
