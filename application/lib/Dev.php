@@ -9,3 +9,11 @@ function debug($str) {
 	echo '</pre>';
 	exit;
 }
+function dd(...$vars) {
+    foreach ($vars as $var) {
+        echo '<pre>';
+        var_dump($var);
+        echo '</pre>';
+    }
+	exit;
+}

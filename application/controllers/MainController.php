@@ -2,43 +2,55 @@
 namespace application\controllers;
 
 use application\core\Controller;
+use application\core\Request;
 use application\lib\Pagination;
 use application\lib\Notification;
 use application\core\App;
+use application\models\User;
+
 class MainController extends Controller {
-    public function __construct($route) {
-        parent::__construct($route);
+    public function __construct($route, Request $request) {
+        parent::__construct($route, $request);
         $this->view->layout = 'profile';
         $_SESSION['admin'] = true;
     }
 
     public function indexAction() {
-        $this->view->layout = 'default';
-        if (!empty($_POST)) {
-            $params = array(
-                'login' => $_POST["login"],
-                'password' => $_POST["password"],
-                'app' => 'gnomes'
-            );
+        $users = $this->repository->getUsers();
+//        foreach ($users as $user) {
+//            print ($user->email);
+//            print ('<br>');
+//        }
+        $this->view->render('Главная', ['users' => $users]);
 
-            $result = $this->model->curlQuery('login', $params);
-            if(!empty($result->message)) {
-                $this->view->message('default', $result->message);
-            }
-            if(!empty($result->user_token)) {
 
-                $_SESSION['user_token'] = $result->user_token;
-                $_SESSION['login'] = $_POST["login"];
-                $this->view->location('profile');
-                //$this->view->message('default', $result->user_token);
-            }
-            
-        }
-        $notification = new Notification();
-        $vars = [
-        	"notification" => $notification->getNotify()
-        ];
-        $this->view->render('Главная', $vars);
+
+//        $this->view->layout = 'default';
+//        if (!empty($_POST)) {
+//            $params = array(
+//                'login' => $_POST["login"],
+//                'password' => $_POST["password"],
+//                'app' => 'gnomes'
+//            );
+//
+//            $result = $this->model->curlQuery('login', $params);
+//            if(!empty($result->message)) {
+//                $this->view->message('default', $result->message);
+//            }
+//            if(!empty($result->user_token)) {
+//
+//                $_SESSION['user_token'] = $result->user_token;
+//                $_SESSION['login'] = $_POST["login"];
+//                $this->view->location('profile');
+//                //$this->view->message('default', $result->user_token);
+//            }
+//
+//        }
+//        $notification = new Notification();
+//        $vars = [
+//        	"notification" => $notification->getNotify()
+//        ];
+//        $this->view->render('Главная', $vars);
     }
     public function registerAction() {
         $this->view->layout = 'default';
@@ -60,7 +72,7 @@ class MainController extends Controller {
             if(!empty($result->user_token)) {
                 $this->view->message('default', $result->user_token);
             }
-            
+
         }
         $vars = [
         ];
@@ -137,12 +149,12 @@ class MainController extends Controller {
             $last_key = end($keys);
             $tempPrice = 0.00000000;
             foreach ($wallets as $key => $wallet) {
-                
+
                 if(!empty($type) AND ($type != $wallet->type) OR ($key == $last_key)) {
                     $overallPrices[$type] = $tempPrice;
                     $type = $wallet->type;
                     $tempPrice = 0;
-                    
+
                 } else {
                     $type = $wallet->type;
                     $tempPrice += $wallet->balance;
@@ -154,9 +166,9 @@ class MainController extends Controller {
                     $type = $wallet->type;
                     $tempPrice = 0;
                 }
-                
+
             }
-            
+
             /*
             foreach ($wallets as $wallet) {
                 $params = array(
@@ -313,12 +325,12 @@ class MainController extends Controller {
             $last_key = end($keys);
             $tempPrice = 0.00000000;
             foreach ($wallets as $key => $wallet) {
-                
+
                 if(!empty($type) AND ($type != $wallet->type) OR ($key == $last_key)) {
                     $overallPrices[$type] = $tempPrice;
                     $type = $wallet->type;
                     $tempPrice = 0;
-                    
+
                 } else {
                     $type = $wallet->type;
                     $tempPrice += $wallet->balance;
@@ -330,7 +342,7 @@ class MainController extends Controller {
                     $type = $wallet->type;
                     $tempPrice = 0;
                 }
-                
+
             }
             /*foreach ($wallets as $wallet) {
                 $params = array(

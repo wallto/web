@@ -1,4 +1,6 @@
-
+<?php foreach ($users as $user): ?>
+    <?=$user->email ?>
+<?php endforeach;?>
 <!--          <div class="column is-9">
             <div class="content is-medium">
                     <h3 class="title has-text-grey">Login</h3>

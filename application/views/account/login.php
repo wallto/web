@@ -5,4 +5,6 @@
 	<p>Пароль</p>
 	<p><input type="text" name="password"></p>
 	<b><button type="submit" name="enter">Вход</button></b>
+
+
 </form>

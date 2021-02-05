@@ -1,0 +1,16 @@
+{
+    "name":"PHPRun",
+    "description":"Framework for own develop",
+    "type":"project",
+    "require": {
+        "illuminate/events": "^8.26",
+        "illuminate/database": "^8.26",
+        "vlucas/phpdotenv": "^5.3"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Controllers\\": "application/controllers/",
+            "Models\\": "application/models/"
+        }
+    }
+}
